@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="cn-ZH">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="keywords" content="stock">
+	<meta name="author" content="alex.xu">
+	<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=UTF-8">
+	<title><%= title %></title>
+
+	<link href="/css/bootstrap.css?v=<%= config.version %>" rel="stylesheet" />
+
+	<script src="/lib/sea.js?v=<%= config.version %>"></script>
+		<script>
+			(function(l){
+				var APP = (function(){
+					function _APP(){
+						var pageName = "<%= pageName %>";
+						var urls = {
+							github: "https://github.com/Sealiner"
+						};
+						this.version = "<%= config.version %>";
+						//
+						Object.defineProperty(this, "pageName", {
+							get: function(){
+								return pageName;
+							}
+						});
+						//
+						Object.defineProperty(this, "urls", {
+							get: function(){
+								return urls;
+							},
+							set: function(o){
+								for(var k in o){
+									urls[k] = o[k];
+								}
+							}
+						});
+					}
+					return new _APP();
+				})();
+				//
+				Object.defineProperties(window, {
+					APP: {
+						value:APP,
+						writable: false,
+						enumerable:false,
+						configurable:false
+					}
+				});
+				//
+				<% if("development"=== config.env || "qa"=== config.env){ %>
+				var _base = "/";
+				<% }else{ %>
+				var _base = "/build";
+				l = l||[,"-min"];
+				<%} %>
+				seajs.config({
+					base: _base,
+					map: [
+					    [".js", (l&&l[1]||"")+".js?v=<%= config.version %>"]
+					]
+				});
+			})(location.href.match(/de(\-\d+)bug/));
+		</script>
+</head>
+<body>

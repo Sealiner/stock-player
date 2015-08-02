@@ -1,0 +1,25 @@
+{
+  "name": "stockDisplay",
+  "version": "0.0.0",
+  "description": "A website for stock study",
+  "main": "index.js",
+  "scripts": {
+    "test": "test ./test/test.js"
+  },
+  "keywords": [
+    "website",
+    "stock",
+    "realdata"
+  ],
+  "author": "alex.xu",
+  "license": "ISC",
+  "dependencies": {
+    "express": "*",
+    "ejs": "0.8.8",
+    "body-parser": "~1.0.0",
+    "express-session": "^1.5.0",
+    "express-partials":"*",
+    "connect-flash":"*",
+    "connect-mongo":"*"
+  }
+}
