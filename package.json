@@ -20,6 +20,8 @@
     "express-session": "^1.5.0",
     "express-partials":"*",
     "connect-flash":"*",
-    "connect-mongo":"*"
+    "connect-mongo":"*",
+    "async": "^1.2.1",
+    "mysql": "^2.6.2"
   }
 }

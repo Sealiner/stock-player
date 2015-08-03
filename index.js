@@ -10,6 +10,7 @@ var config = require('./utils/config');
 var flash = require('connect-flash');
 var cluster = require('cluster');
 var routes = require('./routes/index');
+var user = require('./routes/user');
 
 
 if(!cluster.isMaster) {
@@ -24,17 +25,17 @@ if(!cluster.isMaster) {
     app.use(express.static(path.join(__dirname, 'public')));
     //set sessions
     app.use(session({
-        secret: config.db_mongo.COOKIE_SECRET,
+        secret: config.db_mongo.cookie_secret,
         cookie: {
             httpOnly: true,
             //secure: true,
-            maxAge: new Date(new Date().getTime()+7*24*60*60*1000)
+            maxAge: null
         },
         store: new MongoStore({
-            url: config.db_mongo.URL
+            url: config.db_mongo.url
         }),
-        resave: true,
-        saveUninitialized: true
+        resave: false,
+        saveUninitialized: false
     }));
     app.use(flash());
     //
@@ -50,7 +51,8 @@ if(!cluster.isMaster) {
     });
     //router
     app.use(routes);
-   
+    app.use(user);
+
 } else {
     require('os').cpus().forEach(function () {
         cluster.fork();

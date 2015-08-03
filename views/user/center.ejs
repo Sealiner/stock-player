@@ -1,0 +1,10 @@
+<%- include ../header %>
+<script>
+	seajs.use("js_cmd/user/center-cmd");
+</script>
+<link href="/css/user/center.css?v=<%= config.version %>" rel="stylesheet" />
+<div data-role="container" class="body <%= pageName %>">
+	<h1>用户中心</h1>
+	<p><%- id %></p>
+</div>
+<%- include ../footer %>
