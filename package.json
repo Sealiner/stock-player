@@ -1,10 +1,10 @@
 {
-  "name": "stockDisplay",
+  "name": "stock-player",
   "version": "0.0.0",
   "description": "A website for stock study",
   "main": "index.js",
   "scripts": {
-    "test": "test ./test/test.js"
+    "test": "./test/test.js"
   },
   "keywords": [
     "website",
