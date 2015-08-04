@@ -1,12 +1,12 @@
 <%- include ../header %>
 <script>
-	seajs.use("js_cmd/user/login-cmd");
+	seajs.use("js_cmd/user/register-cmd");
 </script>
-<link href="/css/user/login.css?v=<%= config.version %>" rel="stylesheet" />
+<link href="/css/user/register.css?v=<%= config.version %>" rel="stylesheet" />
 <div data-role="container" class="body <%= pageName %>">
-	<h1>登录</h1>
+	<h1>注册</h1>
 	<h3>表单</h3>
-    <form action="/user/verifyLogin" method="POST">
+    <form action="/user/verifyRegister" method="POST">
     <div class="form-group">
       <span class="glyphicon glyphicon-user"></span>
       <input type="text" id="inputUsername" name="username" placeholder="Enter username">
@@ -14,11 +14,6 @@
     <div class="form-group">
       <span class="glyphicon glyphicon-lock"></span>
       <input type="password" id="inputPassword1" name="password" placeholder="Password">
-    </div>
-    <div class="checkbox">
-      <label>
-        <input type="checkbox" name="remember"> remember me
-      </label>
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
   </form>

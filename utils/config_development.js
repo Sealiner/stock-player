@@ -10,8 +10,9 @@ var config ={
 		port: "3306",
 		user: 'jisu3',
 		password: '12225502',
-		database: 'stock_user'
-	}
+		database: 'db_stock_user'
+	},
+	key_user_pwd: "STOCK"
 }
 
 module.exports = config;
