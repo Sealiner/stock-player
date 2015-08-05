@@ -1,50 +1,29 @@
-var dao = require('../utils/dao'),
-	crypto = require('crypto'),
-	config = require('../utils/config');
+var DAO = require('../utils/dao'),
+	helper = require('../utils/helper');
 
+//User模型
 function User (args) {
-	this.username = args.username;
-	this.password = args.password;
+	for(var k in args){
+		this[k] = args[k];
+	}
 }
 User.prototype = {
 	login: function(fn){
-		var selectSQL = "select password from t_user where name = ?",
-			name = this.username;
+		var selectSQL = "select * from t_user where username = ?",
+			username = this.username;
 		
-		dao.getConnection(function(err, conn){
-			if(err){
-				console.log(err);
-			} else {
-				conn.query(selectSQL, [name], function(err, result){
-					conn.release();
-					fn(err, result);
-				});
-			}
-		});
-		
+		DAO.query(selectSQL, [username], function (err, result) {
+			fn(err, result);
+		});	
 	},
 	register: function(fn){
-		//对密码加密
-    	var content = this.password + config.key_user_pwd;
-    	var shasum = crypto.createHash('sha1');
-    	shasum.update(content);
-    	this.password = shasum.digest('hex').substring(0,16);
-    	// 
-		var insertSQL = "insert into t_user(name, password) values(?, ?)",
-			name = this.username,
-			password = this.password;
+		var insertSQL = "insert into t_user(username, password) values(?, ?)",
+			username = this.username,
+			password = helper.digestPassword(this.password);
 
-		dao.getConnection(function(err, conn){
-			if(err){
-				console.log(err);
-			} else {
-				conn.query(insertSQL, [name, password], function(err, result){
-					conn.release();
-					fn(err, result);
-				});
-			}
+		DAO.query(insertSQL, [username, password], function (err, result) {
+			fn(err, result);
 		});
-		
 	}
 }
 

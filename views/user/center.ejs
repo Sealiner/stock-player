@@ -4,7 +4,20 @@
 </script>
 <link href="/css/user/center.css?v=<%= config.version %>" rel="stylesheet" />
 <div data-role="container" class="body <%= pageName %>">
-	<h1>用户中心</h1>
-	<p><%- id %></p>
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">STOCK PLAYER</a>
+		</div>
+		<div>
+			<ul class="nav navbar-nav navbar-right mr ml">
+				<li>
+					<p class="navbar-text">欢迎您，<%= userInfo.username %></p>
+				</li>
+				<li>
+					<a href="/user/logout">退出</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
 </div>
 <%- include ../footer %>
