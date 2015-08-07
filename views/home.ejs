@@ -3,8 +3,19 @@
 	seajs.use("js_cmd/home-cmd");
 </script>
 <link href="/css/home.css?v=<%= config.version %>" rel="stylesheet" />
-<div data-role="container" class="body <%= pageName %>">
-	<h1>Welcome~</h1>
-	<a href="/user/login">login</a>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 col-sm-4 col-sm-offset-4 tc">
+			<h1>Welcome~</h1>	
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 tc">
+			<a href="/user/login">登录</a>
+		</div>
+		<div class="col-xs-12 col-sm-6 tc">
+			<a href="/user/register">注册</a>
+		</div>
+	</div>
 </div>
 <%- include footer %>

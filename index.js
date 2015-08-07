@@ -10,8 +10,7 @@ var config = require('./utils/config');
 var flash = require('connect-flash');
 var cluster = require('cluster');
 var routes = require('./routes/index');
-var user = require('./routes/user');
-
+var statics = require('./routes/statics');
 
 if(!cluster.isMaster) {
     var app = express();
@@ -50,8 +49,8 @@ if(!cluster.isMaster) {
         next();
     });
     //router
+    app.use(statics);
     app.use(routes);
-    app.use(user);
 
 } else {
     require('os').cpus().forEach(function () {
