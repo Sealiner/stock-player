@@ -5,7 +5,8 @@ var express = require("express"),
  * 罗列所有控制器{控制器名:控制器文件加载路径}
  */
 var controllers = {
-	user: "../controllers/user"
+	user: "../controllers/user",
+	stock: "../controllers/stock"
 }
 
 /**

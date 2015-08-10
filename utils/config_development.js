@@ -12,7 +12,10 @@ var config ={
 		password: '12225502',
 		database: 'db_stock_user'
 	},
-	key_user_pwd: "STOCK"
+	key_user_pwd: "STOCK",
+	api: {
+		sina: "http://biz.finance.sina.com.cn/stock/flash_hq/kline_data.php"//?symbol=sh600398&begin_date=20150612&end_date=20150727
+	}
 }
 
 module.exports = config;

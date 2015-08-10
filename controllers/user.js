@@ -154,7 +154,7 @@ exports.center = function (req, res) {
 	//GET方法：显示用户中心页面
 	function GET () {
 		if (req.session.user && req.session.user.id) {
-			var params = {}
+			var params = {};
 			params.user = req.session.user.info;
 			res.render("user/center", {
 				title: "用户中心",
