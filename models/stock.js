@@ -6,6 +6,12 @@ function Stock (args) {
 
 }
 Stock.prototype = {
+	/**
+	 * 获取某股票历史数据
+	 * @param args股票参数 {json} => {symbol: "sh000001", begin_date: "20150101", end_date: "20150810"}
+	 * @param callback回调函数 {function} => function(err,result){//TODO}
+	 * 回调函数参数result为返回的股票历史数据 {array} => [{date,open,high,close,low,volume},{..}..](按时间由早到晚排序)
+	 */
 	fetch: function (args, callback) {
 		var symbol = args.symbol,
 			begin_date = args.begin_date,

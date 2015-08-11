@@ -7,6 +7,7 @@
  *--------------------------------------------------------------------------*/
 define(function(require, exports, module){
 
+function prototypejs () {
 
 var Prototype = {
   Version: '1.6.1',
@@ -4872,6 +4873,7 @@ Element.ClassNames.prototype = {
 };
 
 Object.extend(Element.ClassNames.prototype, Enumerable);
-
+}
+module.exports = prototypejs;
 });
 /*--------------------------------------------------------------------------*/

@@ -4,7 +4,7 @@ exports.showGraphCV = function (req, res) {
 	var stock = new Stock();
 	var args = {
 		symbol: "sh000001",
-		begin_date: "20150101",
+		begin_date: "19900101",
 		end_date: "20150810"
 	};
 	stock.fetch(args, function (err, result) {
