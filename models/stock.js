@@ -12,7 +12,7 @@ Stock.prototype = {
 	 * @param callback回调函数 {function} => function(err,result){//TODO}
 	 * 回调函数参数result为返回的股票历史数据 {array} => [{date,open,high,close,low,volume},{..}..](按时间由早到晚排序)
 	 */
-	fetch: function (args, callback) {
+	fetchHistory: function (args, callback) {
 		var symbol = args.symbol,
 			begin_date = args.begin_date,
 			end_date = args.end_date,

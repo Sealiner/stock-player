@@ -1,8 +1,26 @@
+.mt{
+	margin-top: 0;
+}
 .mr{
 	margin-right: 0;
 }
+.mb{
+	margin-bottom: 0;
+}
 .ml{
 	margin-left: 0;
+}
+.mt-15{
+	margin-top: 15px;
+}
+.mr-15{
+	margin-right: 15px;
+}
+.mb-15{
+	margin-bottom: 15px;
+}
+.ml-15{
+	margin-left: 15px;
 }
 .tc{
 	text-align: center;

@@ -1,22 +1,12 @@
 <%- include ../header %>
-<script src="/lib/prototype.js"></script>
-<script src="/lib/flotr.js"></script>
-<script src="/lib/HumbleFinance.js"></script>
 <script>
   APP.data = <%- JSON.stringify(params.data) %>;
 	seajs.use("js_cmd/stock/showGraphCV-cmd");
 </script>
-<script src="/js/stock/showGraphCV.js"></script>
 <link href="/css/stock/showGraphCV.css?v=<%= config.version %>" rel="stylesheet" />
 <div class="container">
 
-  <div id="finance">
-    <div id="labels">
-      <div id="financeTitle">上证指数</div>
-      <div id="time"></div>
-      <div id="dateRange"></div>
-    </div>
-  </div>
+  <div id="container"></div>
 
 </div>
 

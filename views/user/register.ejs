@@ -3,23 +3,46 @@
 	seajs.use("js_cmd/user/register-cmd");
 </script>
 <link href="/css/user/register.css?v=<%= config.version %>" rel="stylesheet" />
+<nav class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">SP</a>
+  </div>
+  <div>
+    <ul class="nav navbar-nav navbar-right mr ml">
+      <li>
+        <a href="/user/login">登录</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 
-	<h1>注册</h1>
-	<h3>表单</h3>
-    <form action="/user/register" method="POST">
-    <div class="form-group">
-      <span class="glyphicon glyphicon-user"></span>
-      <input type="text" id="inputUsername" name="username" placeholder="Enter username">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <ul class="nav nav-tabs nav-justified">
+        <li><a href="/user/login">登录</a></li>
+        <li class="active"><a href="javascript:;">注册</a></li>
+      </ul>
+      <form action="/user/register" method="POST" class="mt-15 mb-15">
+        <div class="form-group">
+          <span class="glyphicon glyphicon-user"></span>
+          <label for="name">用户名</label>
+          <input type="text" class="form-control" id="inputUsername" name="username" placeholder="用户名">
+        </div>
+        <div class="form-group">
+          <span class="glyphicon glyphicon-lock"></span>
+          <label for="name">密码</label>  
+          <input type="password" class="form-control" id="inputPassword" name="password" placeholder="密码">
+        </div>
+        <div class="form-group">
+          <span class="glyphicon glyphicon-heart"></span>
+          <label for="name">年龄</label>
+          <input type="number" class="form-control" id="inputAge" name="age" placeholder="年龄">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">注册</button>
+      </form>
     </div>
-    <div class="form-group">
-      <span class="glyphicon glyphicon-lock"></span>
-      <input type="password" id="inputPassword1" name="password" placeholder="Password">
-    </div>
-    <div class="form-group">
-      <span class="glyphicon glyphicon-heart"></span>
-      <input type="number" id="inputAge" name="age" placeholder="Age">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
-  </form>
+  </div>
+</div>
 
 <%- include ../footer %>
