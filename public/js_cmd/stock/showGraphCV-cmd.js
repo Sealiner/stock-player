@@ -3,12 +3,12 @@ define(function(require, exports, module){
         bootstrap = require('lib_cmd/bootstrap-cmd'),
         whatever = require('lib_cmd/highstock-cmd');
 
-    $(function () {
+    function initPage () {
+        //绘制默认股市行情图
     	var data = APP.data;
     	var ohlc = [],
             volume = [],
             dataLength = data.length;
-
         for (var i = 0; i < dataLength; i += 1) {
         	var p_d = new Date(data[i]["date"]).getTime(), //date
         		p_o = parseFloat(data[i]["open"]), //open
@@ -23,25 +23,19 @@ define(function(require, exports, module){
                 p_l,
                 p_c
             ]);
-
             volume.push([
                 p_d, // the date
                 p_v // the volume
             ]);
         }
-
-
         // create the chart
-        $('#container').highcharts('StockChart', {
-
+        $('#stock_graph').highcharts('StockChart', {
             rangeSelector: {
                 selected: 1
             },
-
             title: {
-                text: 'AAPL Historical'
+                text: '上证指数A000001'
             },
-
             yAxis: [{
                 labels: {
                     align: 'left',
@@ -66,17 +60,16 @@ define(function(require, exports, module){
                 offset: 3,
                 lineWidth: 2
             }],
-
             series: [{
                 type: 'candlestick',
-                name: 'AAPL',
+                name: '上证指数',
                 data: ohlc,
                 dataGrouping: {
                 	enabled: false
                 }
             }, {
                 type: 'column',
-                name: 'Volume',
+                name: '交易量',
                 data: volume,
                 yAxis: 1,
                 dataGrouping: {
@@ -84,5 +77,23 @@ define(function(require, exports, module){
                 }
             }]
         });
-    }); 
+        //
+        $("#btn_lookup_one").on("click", function () {
+            $.ajax({
+                url: "/api/stock/showGraphCV",
+                async: true,
+                dataType: "json",
+                error: function (e) {
+                    console.log(e);
+                },
+                success: function (result) {
+                    //TODO
+                }
+            })
+        });
+    }
+    //
+    $(function () {
+        initPage();
+    });
 });

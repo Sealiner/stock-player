@@ -30,4 +30,28 @@ helper.digestPassword = function (pwd) {
 	}
  }
 
+/**
+ * 响应JSON数据
+ * @param {object} 请求对象
+ * @param {object} 响应对象
+ * @param {object} 响应数据
+ */
+ helper.rendJSON = function (req, res, data) {
+ 	if (data instanceof Object) {
+ 		data = JSON.stringify(data);
+ 	} else {
+ 		data = {
+ 			code: 10000,
+ 			message: "API returns wrong data!"
+ 		};
+ 		data = JSON.stringify(data);
+ 	}
+ 	var headers = {
+ 		'Content-Type': 'text/html',
+ 		'charset': 'utf-8'
+ 	};
+ 	res.writeHead(200, headers);
+ 	res.end(data);
+ }
+
 module.exports = helper;

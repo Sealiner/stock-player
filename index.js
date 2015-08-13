@@ -10,7 +10,7 @@ var config = require('./utils/config');
 var flash = require('connect-flash');
 var cluster = require('cluster');
 var routes = require('./routes/index');
-var statics = require('./routes/statics');
+var api = require('./routes/api');
 
 if(!cluster.isMaster) {
     var app = express();
@@ -49,7 +49,7 @@ if(!cluster.isMaster) {
         next();
     });
     //router
-    app.use(statics);
+    app.use(api);
     app.use(routes);
 
 } else {

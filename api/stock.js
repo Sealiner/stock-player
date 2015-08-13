@@ -13,44 +13,40 @@ exports.showGraphCV = function (req, res) {
 		default:
 			DEFAULT();
 	}
-	//GET方法：显示默认的CV图
 	function GET () {
+
+	}
+	function POST () {
 		if (helper.isLogin(req)) {
+			var query = req.body,
+				args = {};
+			args.symbol = query.symbol,
+			args.begin_date = query.begin_date || "20000101",
+			args.end_date = query.end_date;
 			var stock = new Stock();
-			var args = {
-				symbol: "sh000001",
-				begin_date: "20000101"
-			};
+			
 			stock.fetchHistory(args, function (err, result) {
 				if (err) {
 					console.log(err);
 				} else {
 					var params = {};
 					params.data = result;
-					params.user = req.session.user.info;
-					res.render("stock/showGraphCV", {
-						title: "CV图",
-						pageName: "showGraphCV",
-						params: params
-					});
+					helper.rendJSON(req, res, params);
 				}
 			});
 		} else {
-			res.render("user/login", {
-				title: "登录",
-				pageName: "userLogin"
-			});
+			var msg = {
+				code: 10003,
+				message: "not allowed"
+			};
+			helper.rendJSON(req, res, msg);
 		}
 	}
-	//GET方法：根据用户选择显示图表
-	function POST () {
-		
-	}
-	//DEFAULT方法
 	function DEFAULT () {
-		res.render('error/404', {
-			title: "找不到页面404",
-			pageName: "404"
-		});
+		var msg = {
+			code: 10002,
+			message: "wrong request method"
+		};
+		helper.rendJSON(req, res, msg);
 	}
 }
