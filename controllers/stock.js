@@ -19,7 +19,7 @@ exports.showGraphCV = function (req, res) {
 			var stock = new Stock();
 			var args = {
 				symbol: "sh000001",
-				begin_date: "20000101"
+				begin_date: "20050101"
 			};
 			stock.fetchHistory(args, function (err, result) {
 				if (err) {

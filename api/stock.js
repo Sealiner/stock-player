@@ -21,7 +21,7 @@ exports.showGraphCV = function (req, res) {
 			var query = req.body,
 				args = {};
 			args.symbol = query.symbol,
-			args.begin_date = query.begin_date || "20000101",
+			args.begin_date = query.begin_date || "20050101",
 			args.end_date = query.end_date;
 			var stock = new Stock();
 			
