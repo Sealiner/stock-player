@@ -1,7 +1,7 @@
 "use strict";
 var express = require('express');
 var path = require('path');
-//var cookieParser = require('cookie-parser'); //for express-session since v1.5.0, cookie-parser is no longer needed
+var cookieParser = require('cookie-parser'); //for express-session since v1.5.0, cookie-parser is no longer needed
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var session    = require('express-session');
@@ -20,7 +20,7 @@ if(!cluster.isMaster) {
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded());
-    //app.use(cookieParser());
+    app.use(cookieParser());
     app.use(express.static(path.join(__dirname, 'public')));
     //set sessions
     app.use(session({

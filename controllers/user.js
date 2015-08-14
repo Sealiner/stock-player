@@ -48,24 +48,29 @@ exports.login = function (req, res) {
 					res.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8' });
 					res.end("登录失败！");
 				} else {
-					//比较返回的密码和自身密码
-					if (result[0] && result[0].password === helper.digestPassword(user.password)) {
-						user = new User(result[0]);
-						delete user.password;
-						delete user.id;
-						//登录成功，给予身份session
-						var stock_player_id = "stock-player-" + (new Date().getTime()) + "-" + Math.round(Math.random()*1000);
-						req.session.user = {
-							id: stock_player_id,
-							info: user
-						}
-						if(remember){
-							req.session.cookie.maxAge = 7*24*60*60*1000; //记录一周
-						}
-						res.redirect("/user/center"); 
-					} else {
+					if (result.length === 0) {
 						res.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8' });
-						res.end("用户名或密码不正确！");
+						res.end("用户名不存在！");
+					} else {
+						if (result[0] && result[0].password === helper.digestPassword(user.password)) {
+							//比较返回的密码和自身密码
+							user = new User(result[0]);
+							delete user.password;
+							delete user.id;
+							//登录成功，给予身份session
+							var stock_player_id = "stock-player-" + (new Date().getTime()) + "-" + Math.round(Math.random()*1000);
+							req.session.user = {
+								id: stock_player_id,
+								info: user
+							}
+							if(remember){
+								req.session.cookie.maxAge = 7*24*60*60*1000; //记录一周
+							}
+							res.redirect("/user/center"); 
+						} else {
+							res.writeHead(200, { 'Content-Type': 'text/html;charset=utf-8' });
+							res.end("用户名或密码不正确！");
+						}
 					}
 				}
 			});
