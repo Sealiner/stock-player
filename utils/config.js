@@ -3,15 +3,12 @@ var config = {},
 if("development" === NODE_ENV) {
 	config = require('./config_development');
 	config.env = "development";
-} else if("pl" === NODE_ENV) {
-	config = require('./config_pl');
-	config.env = "pl";
+} else if("test" === NODE_ENV) {
+	config = require('./config_test');
+	config.env = "test";
 } else if("production" === NODE_ENV) {
 	config = require('./config_production');
 	config.env = "production";
-} else if("qa" === NODE_ENV) {
-	config = require('./config_qa');
-	config.env = "qa";
 } else {
 	config = require('./config_development');
 	config.env = "development";

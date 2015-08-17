@@ -6,7 +6,8 @@ var express = require("express"),
  */
 var controllers = {
 	user: "../controllers/user",
-	stock: "../controllers/stock"
+	stock: "../controllers/stock",
+	block: "../controllers/block"
 }
 
 /**
@@ -38,6 +39,8 @@ router.use(function (req, res, next) {
 	}
 	if (targetCtrl && targetCtrl[action]) {
 		targetCtrl[action].call(null, req, res);
+	} else if (controller === "index" && action === "index") {
+		res.redirect('/user/login');
 	} else {
 		handle404(req, res); //无法找到对应的controller/action
 	}

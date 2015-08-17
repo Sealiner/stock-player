@@ -1,0 +1,57 @@
+<%- include ../header %>
+<script>
+	seajs.use("js_cmd/stock/editBlock-cmd");
+</script>
+<link href="/css/stock/editBlock.css?v=<%= config.version %>" rel="stylesheet" />
+<nav class="navbar navbar-default" role="navigation">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="#">SP</a>
+	</div>
+	<div>
+		<ul class="nav navbar-nav navbar-right mr ml">
+			<li>
+				<p class="navbar-text">欢迎您，<%= params.user.username %></p>
+			</li>
+			<li>
+				<a href="/user/logout">退出</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-2">
+			<div class="list-group">
+   				<a href="#" class="list-group-item active">编辑板块</a>
+   				<a href="/stock/showGraphCV" class="list-group-item">股票查询</a>
+			</div>
+		</div>
+		<div class="col-sm-10">
+			<table class="table table-striped">
+   				<caption>条纹表格布局</caption>
+   				<thead>
+      				<tr>
+        				<th>名称</th>
+         				<th>城市</th>
+         				<th>密码</th>
+      				</tr>
+   				</thead>
+   				<tbody>
+      				<tr>
+         				<td>Tanmay</td>
+         				<td>Bangalore</td>
+         				<td>560001</td>
+      				</tr>
+      				<tr>
+         				<td>Sachin</td>
+         				<td>Mumbai</td>
+         				<td>400003</td>
+      				</tr>
+   				</tbody>
+			</table>
+		</div>
+	</div> 
+</div>
+
+
+<%- include ../footer %>

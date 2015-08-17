@@ -1,5 +1,7 @@
+var app = require('../index');
 var assert = require('assert');
-var request = require('supertest')("http://localhost:5080");
+//var request = require('supertest')("http://localhost:5080");
+var request = require('supertest')(app);
 var should = require('should');
 
 describe('user.test.js', function () {
@@ -74,6 +76,6 @@ describe('user.test.js', function () {
 					done();
 				});
 		});
-	})
+	});
 	
-})
+});

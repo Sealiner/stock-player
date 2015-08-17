@@ -3,9 +3,9 @@ var DAO = require('../utils/dao'),
 
 //User模型
 function User (args) {
-	for(var k in args){
-		this[k] = args[k];
-	}
+	this.username = args.username;
+	this.password = args.password;
+	this.age = args.age;
 }
 User.prototype = {
 	login: function(fn){
