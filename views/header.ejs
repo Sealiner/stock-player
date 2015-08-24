@@ -53,7 +53,7 @@
 					}
 				});
 				//
-				<% if("development"=== config.env || "qa"=== config.env){ %>
+				<% if("development" === config.env || "test" === config.env){ %>
 				var _base = "/";
 				<% }else{ %>
 				var _base = "/build";

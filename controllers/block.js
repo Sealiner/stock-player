@@ -15,13 +15,37 @@ exports.editBlock = function (req, res) {
 	}
 	//GET方法：显示编辑页面
 	function GET () {
-		var params = {};
-		params.user = req.session.user.info;
-		res.render('stock/editBlock', {
-			title: "编辑板块",
-			pageName: "editBlock",
-			params: params
-		});
+		if (helper.isLogin(req)) {
+			var	username = req.session.user.info.username;
+			var block = new Block();
+			block.queryBlockByUsername(username, function (err, result) {
+				if (err) {
+					console.log(err);
+				} else {
+					var params = {};
+					params.user = req.session.user.info;
+					var blocks = [];
+					for (var i = 0; i < result.length; i++){
+						var blockname = result[i].blockname;
+						var stocks = result[i].stocks ? result[i].stocks.split(',') : [];
+						var blockObj = {
+							blockname: blockname,
+							stocks: stocks
+						};
+						blocks.push(blockObj);
+					}
+					params.blocks = blocks;
+					res.render('stock/editBlock', {
+						title: "编辑板块",
+						pageName: "editBlock",
+						params: params
+					});
+				}
+			});
+		} else {
+			res.redirect('/user/login');
+		}
+		
 	}
 	//POST方法：保存修改
 	function POST () {

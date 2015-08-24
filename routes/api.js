@@ -6,7 +6,8 @@ var express = require("express"),
  * 罗列所有api{api名:api文件加载路径}
  */
 var apiList = {
-	stock: "../api/stock"
+	stock: "../api/stock",
+	block: "../api/block"
 }
 
 /**

@@ -27,31 +27,106 @@
 			</div>
 		</div>
 		<div class="col-sm-10">
-			<table class="table table-striped">
-   				<caption>条纹表格布局</caption>
+			<table class="table">
+   				<caption>板块编辑</caption>
    				<thead>
       				<tr>
-        				<th>名称</th>
-         				<th>城市</th>
-         				<th>密码</th>
+        				<th>板块名称</th>
+         				<th>股票代码</th>
       				</tr>
    				</thead>
    				<tbody>
+      				<% if (params.blocks.length > 0) { %>
+      				<% for (var i = 0; i < params.blocks.length; i++) { %>
       				<tr>
-         				<td>Tanmay</td>
-         				<td>Bangalore</td>
-         				<td>560001</td>
+      					<td>
+      						<span><%= params.blocks[i].blockname %></span>
+      						<span class="block-edit glyphicon glyphicon-pencil" data-toggle="modal" 
+   data-target="#blockEdit"></span>
+      						<span class="block-remove glyphicon glyphicon-remove-sign"></span>
+      					</td>
+      					<td>
+      						<% for (var j = 0; j < params.blocks[i].stocks.length; j++) { %>
+      						<p class="stocks">
+      							<span><%= params.blocks[i].stocks[j] %></span>
+      							<span class="stock-remove glyphicon glyphicon-remove-sign"></span>
+      						</p>
+      						<% } %>
+      						<p><span class="stock-plus glyphicon glyphicon-plus" data-toggle="modal" 
+   data-target="#stockPlus"></span></p>
+      					</td>
       				</tr>
+      				<% } %>
+      				<% } else {%>
       				<tr>
-         				<td>Sachin</td>
-         				<td>Mumbai</td>
-         				<td>400003</td>
+      					<td><span class="block-plus glyphicon glyphicon-plus"></td>
+      					<td>--|--</td>
       				</tr>
+      				<% } %>
    				</tbody>
 			</table>
 		</div>
 	</div> 
 </div>
-
+<!--新建板块模态框-->
+<div class="modal fade" id="blockNew" role="dialog" aria-hidden="true">
+   	<div class="modal-dialog">
+      	<div class="modal-content">
+         	<div class="modal-header">
+            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            	<h4 class="modal-title">新建板块</h4>
+        	</div>
+        	<div class="modal-body">
+            	<label>板块名称：</label>
+            	<input type="text" id="input_new_block" placeholder="请输入板块名称">
+        	</div>
+        	<div class="modal-footer">
+            	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            	<button type="button" class="btn btn-primary" id="btn_new_block">创建</button>
+        	</div>
+      	</div>
+    </div>
+</div>
+<!--编辑板块模态框-->
+<div class="modal fade" id="blockEdit" role="dialog" aria-hidden="true">
+   	<div class="modal-dialog">
+      	<div class="modal-content">
+         	<div class="modal-header">
+            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            	<h4 class="modal-title">编辑板块</h4>
+        	</div>
+        	<div class="modal-body">
+            	<label>板块名称：</label>
+            	<input type="text" id="input_edit_block" placeholder="请输入板块名称">
+        	</div>
+        	<div class="modal-footer">
+            	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            	<button type="button" class="btn btn-primary" id="btn_edit_block">修改</button>
+        	</div>
+      	</div>
+    </div>
+</div>
+<!--添加股票模态框-->
+<div class="modal fade" id="stockPlus" role="dialog" aria-hidden="true">
+   	<div class="modal-dialog">
+      	<div class="modal-content">
+         	<div class="modal-header">
+            	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            	<h4 class="modal-title">添加股票</h4>
+        	</div>
+        	<div class="modal-body">
+            	<select id="market">
+					<option value="sh">上证</option>
+					<option value="sz">深证</option>
+				</select>
+            	<input type="text" id="input_add_stock" placeholder="请输入股票代码">
+        	</div>
+        	<div class="modal-footer">
+            	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            	<button type="button" class="btn btn-primary" id="btn_add_stock">添加</button>
+        	</div>
+      	</div>
+    </div>
+</div>
 
 <%- include ../footer %>
