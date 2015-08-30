@@ -31,6 +31,8 @@ exports.showGraphCV = function (req, res) {
 				} else {
 					var params = {};
 					params.data = result;
+					params.code = 0;
+					params.message = "success";
 					helper.rendJSON(req, res, params);
 				}
 			});

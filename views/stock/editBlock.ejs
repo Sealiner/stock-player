@@ -40,9 +40,8 @@
       				<% for (var i = 0; i < params.blocks.length; i++) { %>
       				<tr>
       					<td>
-      						<span><%= params.blocks[i].blockname %></span>
-      						<span class="block-edit glyphicon glyphicon-pencil" data-toggle="modal" 
-   data-target="#blockEdit"></span>
+      						<span data-id=<%= params.blocks[i].id %>><%= params.blocks[i].blockname %></span>
+      						<span class="block-edit glyphicon glyphicon-pencil"></span>
       						<span class="block-remove glyphicon glyphicon-remove-sign"></span>
       					</td>
       					<td>
@@ -57,12 +56,11 @@
       					</td>
       				</tr>
       				<% } %>
-      				<% } else {%>
-      				<tr>
+      				<% } %>
+      				<tr id="last_tr">
       					<td><span class="block-plus glyphicon glyphicon-plus"></td>
       					<td>--|--</td>
       				</tr>
-      				<% } %>
    				</tbody>
 			</table>
 		</div>
@@ -98,6 +96,7 @@
         	<div class="modal-body">
             	<label>板块名称：</label>
             	<input type="text" id="input_edit_block" placeholder="请输入板块名称">
+              <input type="hidden" id="input_old_block" value="">
         	</div>
         	<div class="modal-footer">
             	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>

@@ -95,7 +95,7 @@ define(function(require, exports, module){
             var str_symbol = $eles.market.val() + $eles.symbol.val();
             $.ajax({
                 url: "/api/stock/showGraphCV",
-                method: "POST",
+                type: "POST",
                 data: {
                     symbol: str_symbol
                 },
@@ -105,6 +105,7 @@ define(function(require, exports, module){
                     console.log(e);
                 },
                 success: function (result) {
+                if (result.code == 0) {
                     var data = result.data;
                     var ohlc = [],
                         close = [],
@@ -184,6 +185,7 @@ define(function(require, exports, module){
                             }
                         }]
                     });
+                }
                 }
             });
         });

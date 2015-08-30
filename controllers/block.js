@@ -26,9 +26,11 @@ exports.editBlock = function (req, res) {
 					params.user = req.session.user.info;
 					var blocks = [];
 					for (var i = 0; i < result.length; i++){
+						var id = result[i].id;
 						var blockname = result[i].blockname;
 						var stocks = result[i].stocks ? result[i].stocks.split(',') : [];
 						var blockObj = {
+							id: id,
 							blockname: blockname,
 							stocks: stocks
 						};

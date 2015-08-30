@@ -18,8 +18,30 @@ Block.prototype = {
 			fn(err, result);
 		});	
 	},
-	editBlock: function () {
-		
+	editBlock: function (args, fn) {
+		var blockname = args.blockname,
+			id = args.id,
+			username = args.username;
+		var querySQL1 = "select username from t_block where id = ?";
+		var querySQL2 = "update t_block set blockname = ? where id = ?";
+		//首先检查改id是否属于请求人
+		DAO.query(querySQL1, [id], function (err1, result1) {
+			if (err1) {
+				console.log(err1);
+			} else {
+				if (result1[0].username === username) {
+					DAO.query(querySQL2, [blockname, id], function (err2, result2) {
+						fn(err2, result2);
+					});
+				} else {
+					var msg = {
+						code: 10003,
+						message: "not allowed"
+					};
+					fn (null, msg);
+				}
+			}
+		})
 	},
 	newBlock: function (args, fn) {
 		var blockname = args.blockname,
