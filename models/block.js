@@ -75,6 +75,76 @@ Block.prototype = {
 				}
 			}
 		});
+	},
+	addStock: function (args, fn) {
+		var id = args.id,
+			username = args.username,
+			symbol = args.symbol;
+		var querySQL1 = "select username, stocks from t_block where id = ?";
+		var querySQL2 = "update t_block set stocks = ? where id = ?";
+		//首先检查该id是否属于请求人
+		DAO.query(querySQL1, [id], function (err1, result1) {
+			if (err1) {
+				console.log(err1);
+			} else {
+				if (result1[0].username === username) {
+					var stocks = result1[0].stocks ? result1[0].stocks + ',' + symbol : symbol;
+					DAO.query(querySQL2, [stocks, id], function (err2, result2) {
+						fn(err2, result2);
+					});
+				} else {
+					var msg = {
+						code: 10003,
+						message: "not allowed"
+					};
+					fn (null, msg);
+				}
+			}
+		});
+	},
+	removeStock: function (args, fn) {
+		var id = args.id,
+			username = args.username,
+			symbol = args.symbol;
+		var querySQL1 = "select username, stocks from t_block where id = ?";
+		var querySQL2 = "update t_block set stocks = ? where id = ?";
+		//首先检查该id是否属于请求人
+		DAO.query(querySQL1, [id], function (err1, result1) {
+			if (err1) {
+				console.log(err1);
+			} else {
+				if (result1[0].username === username) {
+					if (result1[0].stocks) {
+						var stocks = result1[0].stocks.split(',');
+						var stocks_str = '';
+						for (var i = 0; i < stocks.length; i++) {
+							if (symbol === stocks[i]) {
+								stocks.splice(i,1);
+								break;
+							}
+						}
+						for (var i = 0; i < stocks.length; i++) {
+							stocks_str += stocks[i];
+							if (stocks.length-1 != i) {
+								stocks_str += ',';
+							}
+						}
+						if (stocks.length == 0) {
+							stocks_str = null;
+						}
+						DAO.query(querySQL2, [stocks_str, id], function (err2, result2) {
+							fn(err2, result2);
+						});
+					}
+				} else {
+					var msg = {
+						code: 10003,
+						message: "not allowed"
+					};
+					fn (null, msg);
+				}
+			}
+		});
 	}
 }
 

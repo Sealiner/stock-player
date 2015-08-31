@@ -2,17 +2,13 @@ define(function(require, exports, module){
 	var $ = require('lib_cmd/jquery-cmd'),
         bootstrap = require('lib_cmd/bootstrap-cmd');
 
+    var targetStock = null;
+
     $(function () {
     	initPage();
     });
 
-    function initPage () {
-        //新建板块
-        $('.block-plus').on('click', function () {
-            $('#blockNew').modal({
-                backdrop: false
-            });
-        });
+    function bindEditBlock () {
         //编辑板块
         $('.block-edit').on('click', function () {
             var id = $(this).siblings('.block-name').data('id');
@@ -21,6 +17,9 @@ define(function(require, exports, module){
                 backdrop: false
             });
         });
+    }
+
+    function bindRemoveBlock () {
         //删除板块
         $('.block-remove').on('click', function () {
             var id = $(this).siblings('.block-name').data('id'),
@@ -31,6 +30,40 @@ define(function(require, exports, module){
                 backdrop: false
             });
         });
+    }
+
+    function bindRemoveStock () {
+        //删除股票
+        $('.stock-remove').on('click', function () {
+            targetStock = this;
+            var symbol = $(this).prev().text();
+            var id = $(this).parents('tr').find('.block-name').data('id');
+            $('#input_stock_block_id').val(id);
+            $('#input_remove_stock').val(symbol);
+            $('#stockRemove').modal({
+                backdrop: false
+            });
+        });
+    }
+
+    function initPage () {
+        //新建板块
+        $('.block-plus').on('click', function () {
+            $('#blockNew').modal({
+                backdrop: false
+            });
+        });
+        //添加股票
+        $('.stock-plus').on('click', function () {
+            var id = $(this).parents('tr').find('.block-name').data('id');
+            $('#input_stock_block').val(id);
+            $('#stockPlus').modal({
+                backdrop: false
+            });
+        });
+        bindRemoveStock();
+        bindRemoveBlock();
+        bindEditBlock();
     	//新建板块提交
     	$('#btn_new_block').on('click', function () {
             var self = this;
@@ -57,6 +90,8 @@ define(function(require, exports, module){
                             <td><p><span class="stock-plus glyphicon glyphicon-plus" data-toggle="modal" data-target="#stockPlus"></span></p></td>\
                         </tr>';
                         $('#last_tr').before(TPL);
+                        bindRemoveBlock();
+                        bindEditBlock();
                     } else {
                         alert(result.message);
                     }
@@ -113,6 +148,69 @@ define(function(require, exports, module){
                     $('#blockRemove').modal('hide');
                     if (result.code == 0) {
                         $('[data-id='+id+']').parents('tr').remove();
+                    } else {
+                        alert(result.message);
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+        //添加股票
+        $('#btn_add_stock').on('click', function () {
+            var self = this;
+            $(self).attr('disabled', true);
+            var id = $('#input_stock_block').val(),
+                symbol = $('#market').val() + $('#input_add_stock').val();
+            $.ajax({
+                type: "POST",
+                async: true,
+                url: '/api/block/addStock',
+                data: {
+                    id: id,
+                    symbol: symbol
+                },
+                dataType: "json",
+                success: function (result) {
+                    $(self).attr('disabled', false);
+                    $('#stockPlus').modal('hide');
+                    if (result.code == 0) {
+                        var TPL = '<p class="stocks">\
+                                <span>'+symbol+'</span>\
+                                <span class="stock-remove glyphicon glyphicon-remove-sign"></span>\
+                            </p>';
+                        $('[data-id='+id+']').parents('tr').find('.stock-plus').parent().before(TPL);
+                        bindRemoveStock();
+                    } else {
+                        alert(result.message);
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+        //删除股票
+        $('#btn_remove_stock').on('click', function () {
+            var self = this;
+            $(self).attr('disabled', true);
+            var id = $('#input_stock_block_id').val(),
+                symbol = $('#input_remove_stock').val();
+            $.ajax({
+                type: "POST",
+                async: true,
+                url: '/api/block/removeStock',
+                data: {
+                    id: id,
+                    symbol: symbol
+                },
+                dataType: "json",
+                success: function (result) {
+                    $(self).attr('disabled', false);
+                    $('#stockRemove').modal('hide');
+                    if (result.code == 0) {
+                        $(targetStock).parent('p').remove();
                     } else {
                         alert(result.message);
                     }

@@ -51,8 +51,7 @@
       							<span class="stock-remove glyphicon glyphicon-remove-sign"></span>
       						</p>
       						<% } %>
-      						<p><span class="stock-plus glyphicon glyphicon-plus" data-toggle="modal" 
-   data-target="#stockPlus"></span></p>
+      						<p><span class="stock-plus glyphicon glyphicon-plus"></span></p>
       					</td>
       				</tr>
       				<% } %>
@@ -115,10 +114,11 @@
         	</div>
         	<div class="modal-body">
             	<select id="market">
-					<option value="sh">上证</option>
-					<option value="sz">深证</option>
-				</select>
+					     <option value="sh">上证</option>
+					     <option value="sz">深证</option>
+				      </select>
             	<input type="text" id="input_add_stock" placeholder="请输入股票代码">
+              <input type="hidden" id="input_stock_block" value="">
         	</div>
         	<div class="modal-footer">
             	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -127,7 +127,7 @@
       	</div>
     </div>
 </div>
-<!--确认操作模态框-->
+<!--删除板块模态框-->
 <div class="modal fade" id="blockRemove" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -142,6 +142,26 @@
           <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
               <button type="button" class="btn btn-primary" id="btn_remove_block">确定</button>
+          </div>
+        </div>
+    </div>
+</div>
+<!--删除股票模态框-->
+<div class="modal fade" id="stockRemove" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+              <h4 class="modal-title">确认</h4>
+          </div>
+          <div class="modal-body">
+              <p id="text_remove_stock">您确定要执行该操作吗？</p>
+              <input type="hidden" id="input_remove_stock" value="">
+              <input type="hidden" id="input_stock_block_id" value="">
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-primary" id="btn_remove_stock">确定</button>
           </div>
         </div>
     </div>
