@@ -40,7 +40,7 @@
       				<% for (var i = 0; i < params.blocks.length; i++) { %>
       				<tr>
       					<td>
-      						<span data-id=<%= params.blocks[i].id %>><%= params.blocks[i].blockname %></span>
+      						<span class="block-name" data-id=<%= params.blocks[i].id %>><%= params.blocks[i].blockname %></span>
       						<span class="block-edit glyphicon glyphicon-pencil"></span>
       						<span class="block-remove glyphicon glyphicon-remove-sign"></span>
       					</td>
@@ -125,6 +125,25 @@
             	<button type="button" class="btn btn-primary" id="btn_add_stock">添加</button>
         	</div>
       	</div>
+    </div>
+</div>
+<!--确认操作模态框-->
+<div class="modal fade" id="blockRemove" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+              <h4 class="modal-title">确认</h4>
+          </div>
+          <div class="modal-body">
+              <p id="text_remove_block">您确定要执行该操作吗？</p>
+              <input type="hidden" id="input_remove_block" value="">
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+              <button type="button" class="btn btn-primary" id="btn_remove_block">确定</button>
+          </div>
+        </div>
     </div>
 </div>
 

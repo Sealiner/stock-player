@@ -15,9 +15,19 @@ define(function(require, exports, module){
         });
         //编辑板块
         $('.block-edit').on('click', function () {
-            var id = $(this).prev('span').data('id');
+            var id = $(this).siblings('.block-name').data('id');
             $('#input_old_block').val(id);
             $('#blockEdit').modal({
+                backdrop: false
+            });
+        });
+        //删除板块
+        $('.block-remove').on('click', function () {
+            var id = $(this).siblings('.block-name').data('id'),
+                blockname = $(this).siblings('.block-name').text();
+            $('#input_remove_block').val(id);
+            $('#text_remove_block').text("您确定要删除【"+blockname+"】板块吗？");
+            $('#blockRemove').modal({
                 backdrop: false
             });
         });
@@ -76,6 +86,33 @@ define(function(require, exports, module){
                     $('#blockEdit').modal('hide');
                     if (result.code == 0) {
                         $('[data-id='+id+']').text(blockname);
+                    } else {
+                        alert(result.message);
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        });
+        //删除板块提交
+        $('#btn_remove_block').on('click', function () {
+            var self = this;
+            $(self).attr('disabled', true);
+            var id = $('#input_remove_block').val();
+            $.ajax({
+                type: "POST",
+                async: true,
+                url: '/api/block/removeBlock',
+                data: {
+                    id: id
+                },
+                dataType: "json",
+                success: function (result) {
+                    $(self).attr('disabled', false);
+                    $('#blockRemove').modal('hide');
+                    if (result.code == 0) {
+                        $('[data-id='+id+']').parents('tr').remove();
                     } else {
                         alert(result.message);
                     }

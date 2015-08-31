@@ -24,7 +24,7 @@ Block.prototype = {
 			username = args.username;
 		var querySQL1 = "select username from t_block where id = ?";
 		var querySQL2 = "update t_block set blockname = ? where id = ?";
-		//首先检查改id是否属于请求人
+		//首先检查该id是否属于请求人
 		DAO.query(querySQL1, [id], function (err1, result1) {
 			if (err1) {
 				console.log(err1);
@@ -41,7 +41,7 @@ Block.prototype = {
 					fn (null, msg);
 				}
 			}
-		})
+		});
 	},
 	newBlock: function (args, fn) {
 		var blockname = args.blockname,
@@ -50,6 +50,30 @@ Block.prototype = {
 
 		DAO.query(querySQL, [blockname, username], function (err, result) {
 			fn(err, result);
+		});
+	},
+	removeBlock: function (args, fn) {
+		var id = args.id,
+			username = args.username;
+		var querySQL1 = "select username from t_block where id = ?";
+		var querySQL2 = "delete from t_block where id = ?";
+		//首先检查该id是否属于请求人
+		DAO.query(querySQL1, [id], function (err1, result1) {
+			if (err1) {
+				console.log(err1);
+			} else {
+				if (result1[0].username === username) {
+					DAO.query(querySQL2, [id], function (err2, result2) {
+						fn(err2, result2);
+					});
+				} else {
+					var msg = {
+						code: 10003,
+						message: "not allowed"
+					};
+					fn (null, msg);
+				}
+			}
 		});
 	}
 }
