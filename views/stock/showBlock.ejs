@@ -1,0 +1,35 @@
+<%- include ../header %>
+<script>
+  	APP.data = <%- JSON.stringify(params.data) %>;
+	seajs.use("js_cmd/stock/showBlock-cmd");
+</script>
+<link href="/css/stock/showBlock.css?v=<%= config.version %>" rel="stylesheet" />
+<nav class="navbar navbar-default" role="navigation">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="#">SP</a>
+	</div>
+	<div>
+		<ul class="nav navbar-nav navbar-right mr ml">
+			<li>
+				<p class="navbar-text">欢迎您，<%= params.user.username %></p>
+			</li>
+			<li>
+				<a href="/user/logout">退出</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+<div class="container">
+	<div class="row">
+		<div>
+		<% for (var i = 0; i < params.data.length; i++) { %>
+		<% if (params.data[i]) { %>
+			<div id=<%= "stock_graph" + i %>></div>
+		<% } %>
+		<% } %>
+		</div>
+	</div> 
+</div>
+
+
+<%- include ../footer %>

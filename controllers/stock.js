@@ -1,5 +1,7 @@
 var Stock = require('../models/stock'),
-	helper = require('../utils/helper');
+	Block = require('../models/block'),
+	helper = require('../utils/helper'),
+	async = require('async');
 
 exports.showGraphCV = function (req, res) {
 	var method = req.method;
@@ -17,24 +19,51 @@ exports.showGraphCV = function (req, res) {
 	function GET () {
 		if (helper.isLogin(req)) {
 			var stock = new Stock();
-			var args = {
-				symbol: "sh000001",
-				begin_date: "20050101"
-			};
-			stock.fetchHistory(args, function (err, result) {
-				if (err) {
-					console.log(err);
-				} else {
-					var params = {};
-					params.data = result;
-					params.user = req.session.user.info;
-					res.render("stock/showGraphCV", {
-						title: "CV图",
-						pageName: "showGraphCV",
-						params: params
+			var block = new Block();
+			var params = {};
+			params.user = req.session.user.info;
+			async.parallel({
+				fetchStock: function (fn) {
+					var args = {
+						symbol: "sh000001",
+						begin_date: "20120101"
+					};
+					stock.fetchHistory(args, function (err, result) {
+						if (err) {
+							console.log(err);
+						} else {
+							params.data = result;
+							fn(null, result);
+						}
+					});
+				},
+				initBlock: function (fn) {
+					var username = req.session.user.info.username;
+					block.queryBlockByUsername(username, function (err, result) {
+						var blocks = [];
+						for (var i = 0; i < result.length; i++) {
+							var id = result[i].id;
+							var blockname = result[i].blockname;
+							var stocks = result[i].stocks ? result[i].stocks.split(',') : [];
+							var blockObj = {
+								id: id,
+								blockname: blockname,
+								stocks: stocks
+							};
+							blocks.push(blockObj);
+						}
+						params.blocks = blocks;
+						fn(null, result);
 					});
 				}
+			}, function (err, result) {
+				res.render("stock/showGraphCV", {
+					title: "CV图",
+					pageName: "showGraphCV",
+					params: params
+				});
 			});
+			
 		} else {
 			res.render("user/login", {
 				title: "登录",

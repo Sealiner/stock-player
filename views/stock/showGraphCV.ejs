@@ -1,6 +1,7 @@
 <%- include ../header %>
 <script>
-  APP.data = <%- JSON.stringify(params.data) %>;
+  	APP.blocks = <%- JSON.stringify(params.blocks) %>;
+  	APP.data = <%- JSON.stringify(params.data) %>;
 	seajs.use("js_cmd/stock/showGraphCV-cmd");
 </script>
 <link href="/css/stock/showGraphCV.css?v=<%= config.version %>" rel="stylesheet" />
@@ -52,7 +53,9 @@
 						<label for="stock_block">选择板块</label>
 						<select id="stock_block" class="form-control">
 							<option value selected="selected" disabled="disabled">请选择板块</option>
-							<option value="1">sh000001</option>
+							<% for (var i = 0; i < params.blocks.length; i++) { %>
+							<option value=<%= i %>><%= params.blocks[i].blockname %></option>
+							<% } %>
 						</select>
 					</div>
 					<div class="form-group">

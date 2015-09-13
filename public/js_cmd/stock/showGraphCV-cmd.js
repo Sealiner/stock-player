@@ -1,4 +1,4 @@
-define(function(require, exports, module){
+define( function (require, exports, module) {
 	var $ = require('lib_cmd/jquery-cmd'),
         bootstrap = require('lib_cmd/bootstrap-cmd'),
         whatever = require('lib_cmd/highstock-cmd');
@@ -38,7 +38,7 @@ define(function(require, exports, module){
         // create the chart
         $('#stock_graph').highcharts('StockChart', {
             chart: {
-                height: 600
+                height: 1000
             },
             rangeSelector: {
                 selected: 1
@@ -54,7 +54,7 @@ define(function(require, exports, module){
                 title: {
                     text: 'Price'
                 },
-                height: '60%',
+                height: '65%',
                 offset: 3,
                 lineWidth: 2
             }, {
@@ -65,8 +65,8 @@ define(function(require, exports, module){
                 title: {
                     text: 'Volume'
                 },
-                top: '65%',
-                height: '35%',
+                top: '70%',
+                height: '30%',
                 offset: 3,
                 lineWidth: 2
             }],
@@ -188,6 +188,24 @@ define(function(require, exports, module){
                 }
                 }
             });
+        });
+        //
+        $('#btn_lookup_block').on('click', function () {
+            var seq = $('#stock_block').val();
+            if (seq !== null) {
+                var stocks = APP.blocks[seq].stocks;
+                var queryStr = "symbols=";
+                for (var i = 0; i < stocks.length; i++) {
+                    queryStr += stocks[i];
+                    if (i != stocks.length - 1) {
+                        queryStr += '-';
+                    }
+                }
+                var url = location.protocol + "//" + location.host + '/block/showBlock?' + queryStr;
+                window.open(url);
+            } else {
+                alert("请先选择板块");
+            }
         });
     }
     //
